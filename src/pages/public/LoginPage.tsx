@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -10,13 +11,20 @@ import {
 import { useActionState } from 'react';
 import { shemaLogin, type LoginFormValues } from '../../models';
 import type { ActionState } from '../../interfaces';
-import { createInitialState } from '../../helpers/form.helper';
+import { createInitialState, hanleZodError } from '../../helpers';
+import { useAlert, useAuth, useAxios } from '../../hooks';
+import { Link, useNavigate } from 'react-router-dom';
 
 export type LoginActionState = ActionState<LoginFormValues>;
 const initialState = createInitialState<LoginFormValues>();
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+//const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const LoginPage = () => {
+  const axios = useAxios();
+  const { login } = useAuth();
+  const { showAlert } = useAlert();
+  const navigate = useNavigate();
+
   const loginApi = async (
     _: LoginActionState | undefined,
     formData: FormData
@@ -27,9 +35,17 @@ export const LoginPage = () => {
     };
     try {
       shemaLogin.parse(rawData);
-      await delay(3000)
+      //await delay(3000);
+      const response = await axios.post('/login', rawData);
+      console.log('response', response);
+      if (!response?.data?.token) throw new Error('No existe el token');
+      login(response.data.token, { username: rawData.username });
+      navigate('/perfil');
     } catch (error) {
-      console.log(error);
+      const err = hanleZodError<LoginFormValues>(error, rawData);
+      console.log('err', err);
+      showAlert(err.message, 'error');
+      return err;
     }
   };
 
@@ -39,9 +55,26 @@ export const LoginPage = () => {
   );
 
   return (
-    <Container component={'main'} maxWidth={'xs'}>
-      <Box>
-        <Paper elevation={3} sx={{ padding: 4, width: '100%' }}>
+    <Container
+      maxWidth={false}
+      sx={{
+        backgroundColor: '#ffffffff',
+        width: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: 'sm',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          textAlign: 'center',
+          height: '100vh',
+        }}
+      >
+        <Paper elevation={3} sx={{ padding: 4 }}>
           <Typography component={'h1'} variant="h4" gutterBottom>
             LOGIN
           </Typography>
@@ -51,6 +84,9 @@ export const LoginPage = () => {
           </Typography>
 
           {/* Alerta */}
+          {Object.keys(state?.errors ?? {}).length !== 0 && (
+            <Alert severity="error">{state?.message}</Alert>
+          )}
 
           <Box action={submitAction} component={'form'} sx={{ width: '100%' }}>
             <TextField
@@ -63,6 +99,9 @@ export const LoginPage = () => {
               autoFocus
               type="text"
               disabled={isPending}
+              defaultValue={state?.formData?.username}
+              error={!!state?.errors?.username}
+              helperText={state?.errors?.username}
             />
             <TextField
               name="password"
@@ -72,6 +111,9 @@ export const LoginPage = () => {
               label="Password"
               type="password"
               disabled={isPending}
+              defaultValue={state?.formData?.password}
+              error={!!state?.errors?.password}
+              helperText={state?.errors?.password}
             />
             <Button
               type="submit"
@@ -87,6 +129,7 @@ export const LoginPage = () => {
             >
               {isPending ? 'Cargando...' : 'Ingresar'}
             </Button>
+            <Link to='/userRegister'>Registrar nuevo usuario</Link>
           </Box>
         </Paper>
       </Box>

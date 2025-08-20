@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { AppRouter } from './routes/AppRouter.tsx';
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { AlertProvider, AuthProvider } from './contexts/index.ts';
 
 const theme = createTheme({
   palette: {
@@ -22,8 +23,13 @@ const theme = createTheme({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <AppRouter />
-      <App />
+      <AuthProvider>
+        <AlertProvider>
+          <AppRouter />
+          <CssBaseline />
+          <App />
+        </AlertProvider>
+      </AuthProvider>
     </ThemeProvider>
   </StrictMode>
 );
