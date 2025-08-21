@@ -130,7 +130,7 @@ export const UserPage = () => {
                 ) : null
               }
             >
-              {isPending ? 'Cargando...' : 'Ingresar'}
+              {isPending ? 'Cargando...' : 'Registrar'}
             </Button>
             <Link to="/login">Ir a login</Link>
           </Box>

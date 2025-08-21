@@ -82,7 +82,7 @@ export const TasksPage = () => {
       schemaTask.parse(rawData);
       if (task?.id) {
         await axios.put(`/tasks/${task.id}`, rawData);
-        showAlert('Tarea editadsa', 'success');
+        showAlert('Tarea editada', 'success');
       } else {
         await axios.post('/tasks', rawData);
         showAlert('Tarea creada', 'success');

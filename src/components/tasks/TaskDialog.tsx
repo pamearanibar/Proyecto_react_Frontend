@@ -42,7 +42,7 @@ export const TaskDialog = ({ onClose, open, task, handleCreateEdit }: Props) => 
             name="name"
             autoFocus
             margin="dense"
-            label="Tarea"
+            label="Nombre de la tarea"
             fullWidth
             required
             variant="outlined"
