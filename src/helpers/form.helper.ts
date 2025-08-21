@@ -9,8 +9,7 @@ export const createInitialState = <T>(): ActionState<T> => {
   };
 };
 
-export const hanleZodError = <T>(error: unknown, rawData: Partial<T>) => {
-  console.log('error', error)
+export const hanleZodError = <T>(error: unknown, rawData: Partial<T>): ActionState<T> => {
   if (error instanceof z.ZodError) {
     const fieldErros: Partial<Record<keyof T, string>> = {};
     error.issues.forEach((issue) => {

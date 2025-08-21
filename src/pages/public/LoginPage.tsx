@@ -37,7 +37,6 @@ export const LoginPage = () => {
       shemaLogin.parse(rawData);
       //await delay(3000);
       const response = await axios.post('/login', rawData);
-      console.log('response', response);
       if (!response?.data?.token) throw new Error('No existe el token');
       login(response.data.token, { username: rawData.username });
       navigate('/perfil');
@@ -58,8 +57,8 @@ export const LoginPage = () => {
     <Container
       maxWidth={false}
       sx={{
-        backgroundColor: '#ffffffff',
-        width: '100vh',
+        backgroundColor: '#242424',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
       }}

@@ -42,8 +42,7 @@ export const UserPage = () => {
       const err = hanleZodError<UserFormValues>(error, rawData);
       showAlert(err.message, 'error');
       return err;
-    };
-
+    }
   };
 
   const [state, submitAction, isPending] = useActionState(
@@ -55,8 +54,8 @@ export const UserPage = () => {
     <Container
       maxWidth={false}
       sx={{
-        backgroundColor: '#ffffffff',
-        width: '100vh',
+        backgroundColor: '#242424',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
       }}
@@ -70,70 +69,73 @@ export const UserPage = () => {
           textAlign: 'center',
           height: '100vh',
         }}
-      ></Box>
-      <Paper elevation={3} sx={{ padding: 4 }}>
-        <Typography component={'h1'} variant="h4" gutterBottom>
-          Nuevo Usuario
-        </Typography>
+      >
+        <Paper elevation={3} sx={{ padding: 4 }}>
+          <Typography component={'h1'} variant="h4" gutterBottom>
+            Nuevo Usuario
+          </Typography>
 
-        {/*  {Object.keys(state?.errors ?? {}).length !== 0 && (
+          {/*  {Object.keys(state?.errors ?? {}).length !== 0 && (
           <Alert severity="error">{state?.message}</Alert>
         )} */}
 
-        <Box action={submitAction} component={'form'} sx={{ width: '100%' }}>
-          <TextField
-            name="username"
-            margin="normal"
-            required
-            fullWidth
-            label="Username"
-            autoComplete="username"
-            autoFocus
-            type="text"
-            disabled={isPending}
-            defaultValue={state?.formData?.username}
-            error={!!state?.errors?.username}
-            helperText={state?.errors?.username}
-          />
-          <TextField
-            name="password"
-            margin="normal"
-            required
-            fullWidth
-            label="Password"
-            type="password"
-            disabled={isPending}
-            defaultValue={state?.formData?.password}
-            error={!!state?.errors?.password}
-            helperText={state?.errors?.password}
-          />
-           <TextField
-            name="confirmPassword"
-            margin="normal"
-            required
-            fullWidth
-            label="Repetir password"
-            type="password"
-            disabled={isPending}
-            defaultValue={state?.formData?.confirmPassword}
-            error={!!state?.errors?.confirmPassword}
-            helperText={state?.errors?.confirmPassword}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, height: 48 }}
-            disabled={isPending}
-            startIcon={
-              isPending ? <CircularProgress size={20} color="inherit" /> : null
-            }
-          >
-            {isPending ? 'Cargando...' : 'Ingresar'}
-          </Button>
-          <Link to="/login">Ir a login</Link>
-        </Box>
-      </Paper>
+          <Box action={submitAction} component={'form'} sx={{ width: '100%' }}>
+            <TextField
+              name="username"
+              margin="normal"
+              required
+              fullWidth
+              label="Username"
+              autoComplete="username"
+              autoFocus
+              type="text"
+              disabled={isPending}
+              defaultValue={state?.formData?.username}
+              error={!!state?.errors?.username}
+              helperText={state?.errors?.username}
+            />
+            <TextField
+              name="password"
+              margin="normal"
+              required
+              fullWidth
+              label="Password"
+              type="password"
+              disabled={isPending}
+              defaultValue={state?.formData?.password}
+              error={!!state?.errors?.password}
+              helperText={state?.errors?.password}
+            />
+            <TextField
+              name="confirmPassword"
+              margin="normal"
+              required
+              fullWidth
+              label="Repetir password"
+              type="password"
+              disabled={isPending}
+              defaultValue={state?.formData?.confirmPassword}
+              error={!!state?.errors?.confirmPassword}
+              helperText={state?.errors?.confirmPassword}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2, height: 48 }}
+              disabled={isPending}
+              startIcon={
+                isPending ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : null
+              }
+            >
+              {isPending ? 'Cargando...' : 'Ingresar'}
+            </Button>
+            <Link to="/login">Ir a login</Link>
+          </Box>
+        </Paper>
+      </Box>
     </Container>
   );
 };
