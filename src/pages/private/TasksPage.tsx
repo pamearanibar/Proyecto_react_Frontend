@@ -48,8 +48,8 @@ export const TasksPage = () => {
           done: filterStatus === 'all' ? undefined : filterStatus,
         },
       });
-      setTasks(response.data.data);
-      setTotal(response.data.total);
+      setTasks(response.data);
+      setTotal(response.data.length);
     } catch (error) {
       showAlert(errorHelper(error), 'error');
     }
