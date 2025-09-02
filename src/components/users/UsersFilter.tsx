@@ -68,8 +68,8 @@ export const UsersFilter = ({
             onChange={(e) => setFilterStatus(e.target.value)}
           >
             <MenuItem value="all">Todos</MenuItem>
-            <MenuItem value="true">activo</MenuItem>
-            <MenuItem value="false">inactivo</MenuItem>
+            <MenuItem value="active">activo</MenuItem>
+            <MenuItem value="inactive">inactivo</MenuItem>
           </Select>
         </FormControl>
       </Toolbar>

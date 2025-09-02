@@ -58,8 +58,8 @@ export const UsersPage = () => {
     };
     
     const normalizedStatus =
-    filterst.toLowerCase() === 'activo' ? 'active' :
-    filterst.toLowerCase() === 'inactivo' ? 'inactive' :
+    filterst.toLowerCase() === 'active' ? 'active' :
+    filterst.toLowerCase() === 'inactive' ? 'inactive' :
     'all';
 
     const filteredUsers = users.filter((user) => {

@@ -6,9 +6,11 @@ import {
   Container,
   Paper,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
-import { useActionState } from 'react';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useActionState,useState } from 'react';
 import { shemaLogin, type LoginFormValues } from '../../models';
 import type { ActionState } from '../../interfaces';
 import { createInitialState, hanleZodError } from '../../helpers';
@@ -24,6 +26,7 @@ export const LoginPage = () => {
   const { login } = useAuth();
   const { showAlert } = useAlert();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const loginApi = async (
     _: LoginActionState | undefined,
@@ -108,11 +111,26 @@ export const LoginPage = () => {
               required
               fullWidth
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               disabled={isPending}
               defaultValue={state?.formData?.password}
               error={!!state?.errors?.password}
               helperText={state?.errors?.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      type="button"
+                      aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                      onClick={() => setShowPassword((v) => !v)}
+                      onMouseDown={(e) => e.preventDefault()}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button
               type="submit"
