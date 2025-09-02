@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import type { UsersFilterDoneType, UserType } from '../../components/users/type';
 import type { GridPaginationModel, GridSortModel } from '@mui/x-data-grid';
 import { errorHelper, hanleZodError } from '../../helpers';
-import { schemaUser, type TaskFormValues } from '../../models';
+import { schemaUser} from '../../models';
 import type { UserFormValues } from '../../models/userModel';
 
 export const UsersPage = () => {

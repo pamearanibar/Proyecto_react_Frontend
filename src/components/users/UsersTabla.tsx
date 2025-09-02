@@ -32,10 +32,7 @@ export const UsersTabla = ({
   rowCount,
   paginationModel,
   setPaginationModel,
-  setSortModel,
-  sortModel,
   handleDelete,
-  handleDone: handledone,
   handleOpenEditDialog,
   handleToggleStatus,
 }: Props) => {

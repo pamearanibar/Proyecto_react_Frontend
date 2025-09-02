@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,9 +14,8 @@ import { useState } from "react";
 import type { UserType } from './type';
 import { useActionState } from 'react';
 import type { ActionState } from '../../interfaces';
-import type { TaskFormValues, UserFormValues } from '../../models';
+import type {UserFormValues } from '../../models';
 import { createInitialState } from '../../helpers';
-import type { User } from '../../contexts';
 
 export type UsersActionState = ActionState<UserFormValues>;
 
